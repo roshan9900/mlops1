@@ -36,4 +36,4 @@ def train(data_path, model_path, n_estimators, max_depth):
         accuracy = accuracy_score(y_test, pred)
         precision = precision_score(y_test ,pred)
         recall = recall_score(y_test, pred)
-        print(accuracy, precision, recall)
+        print(accuracy, precision, recall)  
