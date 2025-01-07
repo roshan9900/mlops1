@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 import pickle
 import yaml
-from sklearn.metrics import accuracy_score, precision_score, confusion_matrix, recall_score, classification_report
+from sklearn.metrics import accuracy_score, precision_score, confusion_matrix,f1_score, recall_score, classification_report
 import mlflow
 from mlflow.models import infer_signature
 import os
@@ -34,6 +34,37 @@ def train(data_path, model_path, n_estimators, max_depth):
         pred = rf.predict(x_test)
 
         accuracy = accuracy_score(y_test, pred)
-        precision = precision_score(y_test ,pred)
-        recall = recall_score(y_test, pred)
-        print(accuracy, precision, recall)  
+        #precision = precision_score(y_test ,pred)
+        #recall = recall_score(y_test, pred)
+        #f1score = f1_score(y_test, pred)
+        #print(accuracy, precision, recall)  
+        mlflow.log_metric('acc',accuracy)
+        #mlflow.log_metric('pre',precision)
+        #mlflow.log_metric('recall',recall)
+        #lflow.log_metric('f1',f1score)
+        mlflow.log_param('nestimators',n_estimators)
+        mlflow.log_param('max_depth',max_depth)
+
+
+        cm = confusion_matrix(y_test, pred)
+        cls = classification_report(y_test, pred)
+
+        mlflow.log_text(str(cm),'confusion_metrix.txt')
+        mlflow.log_text(str(cls),'classificationreport.txt')
+
+        tracking_url_type = urlparse(mlflow.get_tracking_uri()).scheme
+
+        if tracking_url_type!='file':
+            mlflow.sklearn.log_model(rf,'model',registered_model_name='first_model')
+        else:
+            mlflow.sklearn.log_model(rf,'model',signature=signature)
+
+        os.makedirs(os.path.dirname(model_path))
+        filename = model_path
+        pickle.dump(rf,open(filename,'wb'))
+
+        print(f'model saved to {model_path}')
+
+if __name__=='__main__':
+    train(r'C:\Users\admin\Documents\Roshan\mlops1\data\preprocess\train.csv',r'C:\Users\admin\Documents\Roshan\mlops1\models\model.pkl',100,10)
+

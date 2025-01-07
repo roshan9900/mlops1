@@ -48,4 +48,4 @@ def preprocess(input_path, output_path):
 
 
 if __name__=='__main__':
-    preprocess(r'C:\mlops1\data\raw\train.csv',r'C:\mlops1\data\preprocess\train.csv')
+    preprocess(r'C:\Users\admin\Documents\Roshan\mlops1\data\raw\train.csv',r'C:\Users\admin\Documents\Roshan\mlops1\data\preprocess\train.csv')
