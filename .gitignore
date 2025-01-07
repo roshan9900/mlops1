@@ -1,2 +1,4 @@
 venv/
 models/
+/model.pkl
+/accuracy
