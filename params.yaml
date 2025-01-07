@@ -1,0 +1,10 @@
+preprocess:
+  input: data\raw\train.csv
+  output: data\preprocess\train.csv
+
+train:
+  data: data\preprocess\train.csv
+  model: models\model.pkl
+  random_state: 42
+  n_estimators: 100
+  max_depth: 5
