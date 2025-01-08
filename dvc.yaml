@@ -1,22 +1,25 @@
 stages:
-  proprocess:
+  preprocess:
     cmd: python .\src\preprocess.py
     deps:
     - .\data\raw\
     - .\src\preprocess.py
     outs:
     - .\data\preprocess\
+    - .\models\lemma.pkl
+    - .\models\tfidf.pkl
   model_building:
     cmd: python .\src\train.py
     deps:
     - .\data\preprocess\
     - .\src\train.py
     outs:
-    - model.pkl
+    - models\model.pkl
+
   evaluate:
     cmd: python .\src\evaluate.py
     deps:
     - .\src\evaluate.py
-    - model.pk
-    outs:
-    - accuracy
+    - models\lemma.pkl
+    - models\model.pkl
+    - models\tfidf.pkl

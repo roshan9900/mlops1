@@ -59,12 +59,13 @@ def train(data_path, model_path, n_estimators, max_depth):
         else:
             mlflow.sklearn.log_model(rf,'model',signature=signature)
 
+        os.mkdir(model_path)
         
         filename = model_path
-        pickle.dump(rf,open(filename,'wb'))
+        pickle.dump(rf,open(filename+r'\model.pkl','wb'))
 
         print(f'model saved to {model_path}')
 
 if __name__=='__main__':
-    train(r'C:\Users\admin\Documents\Roshan\mlops1\data\preprocess\train.csv',r'C:\Users\admin\Documents\Roshan\mlops1\models\model.pkl',100,10)
+    train(r'C:\Users\admin\Documents\Roshan\mlops1\data\preprocess\train.csv',r'C:\Users\admin\Documents\Roshan\mlops1\models',100,10)
 
