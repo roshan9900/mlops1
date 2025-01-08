@@ -16,6 +16,7 @@ nltk.download('omw-1.4')
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
+import pickle
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
@@ -39,6 +40,9 @@ def preprocess(input_path, output_path):
     tfidf = TfidfVectorizer(max_features=500, stop_words='english')
     x = tfidf.fit_transform(df['lemma']).toarray()
 
+    os.mkdir(r'C:\Users\admin\Documents\Roshan\mlops1\models')
+    pickle.dump(lemma,open(r'C:\Users\admin\Documents\Roshan\mlops1\models\lemma.pkl','wb'))
+    pickle.dump(tfidf,open(r'C:\Users\admin\Documents\Roshan\mlops1\models\tfidf.pkl','wb'))
     xx = pd.DataFrame(x)
     xx['sentiment'] = df['sentiment']
 
