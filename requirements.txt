@@ -5,3 +5,5 @@ mlflow
 dvc-s3
 nltk
 mlflow
+streamlit
+imblearn

@@ -1,5 +1,4 @@
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
 import pickle
 import yaml
 from sklearn.metrics import accuracy_score, precision_score, confusion_matrix,f1_score, recall_score, classification_report
@@ -8,13 +7,15 @@ from mlflow.models import infer_signature
 import os
 from sklearn.model_selection import train_test_split
 from urllib.parse import urlparse
+from sklearn.svm import SVC
+
 
 os.environ['MLFLOW_TRACKING_URI']='https://dagshub.com/roshansalunke91/mlops1pipeline.mlflow'
 os.environ['MLFLOW_TRACKING_USERNAME']='roshansalunke91'
 os.environ['MLFLOW_TRACKING_PASSWORD']='19b31372c4920914da8021bca754c4f8e50ac529'
 
 def building_model(x_train, y_train):
-    rf = RandomForestClassifier(random_state=42)
+    rf = SVC(random_state=42)
     rf.fit(x_train, y_train)
     return rf
 
@@ -59,7 +60,6 @@ def train(data_path, model_path, n_estimators, max_depth):
         else:
             mlflow.sklearn.log_model(rf,'model',signature=signature)
 
-        os.mkdir(model_path)
         
         filename = model_path
         pickle.dump(rf,open(filename+r'\model.pkl','wb'))

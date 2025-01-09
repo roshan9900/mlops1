@@ -23,35 +23,35 @@ stages:
     deps:
     - path: .\data\preprocess\
       hash: md5
-      md5: b0e2aa7258e4e5a2aac04678995aec8b.dir
-      size: 33261446
+      md5: 213cc96ebfe02c42d3b4e5dfc98b847e.dir
+      size: 75833101
       nfiles: 1
     - path: .\src\train.py
       hash: md5
-      md5: d6a2bacb7736cca3329046f509873755
-      size: 2653
+      md5: 66e7454e75015d803603aff0dbe8b155
+      size: 2582
     outs:
     - path: models\model.pkl
       hash: md5
-      md5: 59bc03b83cc3c7c75443e76fcd622e64
-      size: 72215029
+      md5: 7128fd98ca649b9afdc0121829f5e8c0
+      size: 65028084
   preprocess:
     cmd: python .\src\preprocess.py
     deps:
     - path: .\data\raw\
       hash: md5
-      md5: 545df053583e0a21de84394fc6e1cf52.dir
-      size: 2827956
+      md5: a55e91f044e578cb00407fec1ca6adf5.dir
+      size: 3036718
       nfiles: 4
     - path: .\src\preprocess.py
       hash: md5
-      md5: dede55440be05899685f461d21b0c376
-      size: 1829
+      md5: 6f05e2f2d152efefd6a69711b53b9068
+      size: 1957
     outs:
     - path: .\data\preprocess\
       hash: md5
-      md5: b0e2aa7258e4e5a2aac04678995aec8b.dir
-      size: 33261446
+      md5: 213cc96ebfe02c42d3b4e5dfc98b847e.dir
+      size: 75833101
       nfiles: 1
     - path: .\models\lemma.pkl
       hash: md5
@@ -59,8 +59,8 @@ stages:
       size: 57
     - path: .\models\tfidf.pkl
       hash: md5
-      md5: e2657b941725f89fcab74d7a16865c1b
-      size: 18798
+      md5: d0c7efd7dc2254815db5c23a238e45bd
+      size: 18800
   evaluate:
     cmd: python .\src\evaluate.py
     deps:
@@ -74,9 +74,9 @@ stages:
       size: 57
     - path: models\model.pkl
       hash: md5
-      md5: 59bc03b83cc3c7c75443e76fcd622e64
-      size: 72215029
+      md5: 7128fd98ca649b9afdc0121829f5e8c0
+      size: 65028084
     - path: models\tfidf.pkl
       hash: md5
-      md5: e2657b941725f89fcab74d7a16865c1b
-      size: 18798
+      md5: d0c7efd7dc2254815db5c23a238e45bd
+      size: 18800

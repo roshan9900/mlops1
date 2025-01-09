@@ -7,7 +7,7 @@ import os
 import nltk
 import re
 import string
-
+from imblearn.over_sampling import SMOTE
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
@@ -40,14 +40,22 @@ def preprocess(input_path, output_path):
     tfidf = TfidfVectorizer(max_features=500, stop_words='english')
     x = tfidf.fit_transform(df['lemma']).toarray()
 
+    
+    
+
     os.mkdir(r'C:\Users\admin\Documents\Roshan\mlops1\models')
     pickle.dump(lemma,open(r'C:\Users\admin\Documents\Roshan\mlops1\models\lemma.pkl','wb'))
     pickle.dump(tfidf,open(r'C:\Users\admin\Documents\Roshan\mlops1\models\tfidf.pkl','wb'))
+
+    smote = SMOTE()
+    y = df['sentiment']
     xx = pd.DataFrame(x)
-    xx['sentiment'] = df['sentiment']
+    x,y = smote.fit_resample(xx,y)
+    
+    x['sentiment'] = y
 
     os.mkdir(os.path.dirname(output_path))
-    xx.to_csv(output_path,index=False)
+    x.to_csv(output_path,index=False)
     print('success...........')
 
 
